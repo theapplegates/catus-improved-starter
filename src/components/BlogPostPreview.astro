@@ -1,0 +1,19 @@
+---
+export interface Props {
+	post: any;
+	withDesc?: boolean;
+	// eslint-disable-next-line no-undef
+	readonly as?: keyof HTMLElementTagNameMap;
+}
+
+const { post, as: Element = 'div', withDesc = false } = Astro.props as Props;
+const datetime = new Date(post.frontmatter.publishDate).toISOString();
+---
+
+<Element>
+	<time {datetime} class="mr-4 text-gray-500">{post.frontmatter.publishDate}</time>
+	<a href={post.url} class="inline-block mt-4 cactus-link">
+		{post.frontmatter.title}
+	</a>
+	{withDesc && <q class="block mt-2 italic line-clamp-3">{post.frontmatter.description}</q>}
+</Element>
